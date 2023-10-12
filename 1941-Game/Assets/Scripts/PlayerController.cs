@@ -1,33 +1,87 @@
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
+using SysNum = System.Numerics;
+using UniEn = UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 8f; 
-    void FixedUpdate() // Update is called once per frame
-    {
+    private float speed; 
+    public Rigidbody2D rb;
+    public Rigidbody2D rb_g;
+    Vector2 movement;
+    private bool running = false;
+    public Image StaminaBar;
+    public float Stamina, MaxStamina;
+    public float RunCost;
+    public float ChrageRate;
+    private Coroutine rechagre;
+    public Camera cam;
+    Vector2 mousePos;
+    public GameObject Gun;
     
-        Vector3 movement = new Vector3();
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
 
-        if(Input.GetKey(KeyCode.W))
-        {
-            movement.y = 1;
+        Vector2 lookDir = mousePos - rb.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+        rb_g.rotation = angle;
+
+        
+        if(angle < 89 && angle > -89) {
+            Gun.transform.localScale = new Vector3(1, 1, 1);
         }
-        if(Input.GetKey(KeyCode.S))
-        {
-            movement.y = -1;
+        else{
+            Gun.transform.localScale = new Vector3(1, -1, 1);
         }
-        if(Input.GetKey(KeyCode.A))
+    } 
+    void Update() // Update is called once per frame
+    {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
+        
+        if(Input.GetKeyDown("left shift"))
         {
-            movement.x = -1;
+            running = true;
         }
-        if(Input.GetKey(KeyCode.D))
+        else if(Input.GetKeyUp("left shift"))
         {
-            movement.x = 1;
+            running = false;
         }
 
-        movement.Normalize();
-        transform.position += movement * Time.deltaTime * speed;
+        Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        direction.Normalize();
+
+        if(running && (direction.x != 0 || direction.y != 0))
+        {
+            speed = 6f;
+            Stamina -= RunCost * Time.deltaTime;
+            if(Stamina < 0){Stamina = 0; running = false;}
+            StaminaBar.fillAmount = Stamina / MaxStamina;
+
+            if(rechagre != null) StopCoroutine(rechagre);
+            rechagre = StartCoroutine(RechargeStamina());
+        }
+        else{speed = 3f;}
+
+        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+        //else if(Gun.transform.rotation.z < 90){
+        //    Gun.transform.localScale = new Vector3(1, 1, 1);
+        //}
+    }
+    private IEnumerator RechargeStamina()
+    {
+        yield return new WaitForSeconds(2f);
+
+        while(Stamina < MaxStamina)
+        {
+            Stamina += ChrageRate / 10f;
+            if(Stamina > MaxStamina) Stamina = MaxStamina;
+            StaminaBar.fillAmount = Stamina / MaxStamina;
+            yield return new WaitForSeconds(.1f);
+        }
     }
 }
