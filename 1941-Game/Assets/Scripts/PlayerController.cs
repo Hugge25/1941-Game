@@ -21,6 +21,15 @@ public class PlayerController : MonoBehaviour
     public Camera cam;
     Vector2 mousePos;
     public GameObject Gun;
+    public WeaponController weapon;
+    public HealthBar healthBar;
+    public int maxHealth = 100;
+    public int currentHealth;
+
+    void Start()
+    {
+        currentHealth = maxHealth;
+    }
     
     void FixedUpdate()
     {
@@ -71,6 +80,15 @@ public class PlayerController : MonoBehaviour
         //else if(Gun.transform.rotation.z < 90){
         //    Gun.transform.localScale = new Vector3(1, 1, 1);
         //}
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            weapon.Fire();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space)){
+            TakeDamage(10);
+        }
     }
     private IEnumerator RechargeStamina()
     {
@@ -83,5 +101,12 @@ public class PlayerController : MonoBehaviour
             StaminaBar.fillAmount = Stamina / MaxStamina;
             yield return new WaitForSeconds(.1f);
         }
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        healthBar.SetHealth(currentHealth);
     }
 }
