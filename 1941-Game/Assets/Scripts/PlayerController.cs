@@ -89,6 +89,9 @@ public class PlayerController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space)){
             TakeDamage(10);
         }
+        Vector3 newCameraPos = rb.transform.position;
+        newCameraPos.z = cam.transform.position.z;
+        cam.transform.position = newCameraPos;
     }
     private IEnumerator RechargeStamina()
     {
