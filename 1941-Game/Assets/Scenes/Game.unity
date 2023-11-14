@@ -732,7 +732,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7075347610190908646, guid: 7eff9366c1ceb23439f8437574627e69, type: 3}
+      - m_Target: {fileID: -4840032787083636900, guid: 7eff9366c1ceb23439f8437574627e69, type: 3}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: Menu
         m_Mode: 1

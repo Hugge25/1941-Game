@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    public GameObject mMenu;
+    public GameObject Options;
+
+    void Start()
+    {
+        mMenu.SetActive(true);
+        Options.SetActive(false);
+    }
     public void PlayGame()
     {
         SceneManager.LoadScene(1);

@@ -1,10 +1,6 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
-using SysNum = System.Numerics;
-using UniEn = UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {

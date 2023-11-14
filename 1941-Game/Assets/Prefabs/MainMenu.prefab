@@ -394,7 +394,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7075347610190908646}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: ExitGame
         m_Mode: 1
@@ -640,7 +640,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2615106756410644818}
-  - component: {fileID: 7075347610190908646}
+  - component: {fileID: -4840032787083636900}
   m_Layer: 0
   m_Name: MainMenu
   m_TagString: Untagged
@@ -667,7 +667,7 @@ Transform:
   - {fileID: 1231857371512422005}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7075347610190908646
+--- !u!114 &-4840032787083636900
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -679,6 +679,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f546d7cb662650b4eac6395cb7d98781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mMenu: {fileID: 0}
+  Options: {fileID: 0}
 --- !u!1 &6242093469008597887
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,7 +1295,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7075347610190908646}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: PlayGame
         m_Mode: 1
