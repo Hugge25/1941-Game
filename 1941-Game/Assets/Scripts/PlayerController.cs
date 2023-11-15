@@ -1,30 +1,34 @@
 using System.Collections;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed; 
+    [SerializeField]private float speed; 
     public Rigidbody2D rb;
     public Rigidbody2D rb_g;
     Vector2 movement;
     private bool running = false;
-    public Image StaminaBar;
-    public float Stamina, MaxStamina;
-    public float RunCost;
-    public float ChrageRate;
-    private Coroutine rechagre;
+    private int maxStamina = 100;
+    private float runCost = 10;
+    private float currentStamina;
     public Camera cam;
     Vector2 mousePos;
     public GameObject Gun;
     public WeaponController weapon;
-    public HealthBar healthBar;
-    public int maxHealth = 100;
-    public int currentHealth;
+    //public HealthBar healthBar;
+    private int maxHealth = 100;
+    private int currentHealth;
+
+    bool canRechangeStamina;
 
     void Start()
     {
         currentHealth = maxHealth;
+        currentStamina = maxStamina;
+        canRechangeStamina = true;
     }
     
     void FixedUpdate()
@@ -60,22 +64,35 @@ public class PlayerController : MonoBehaviour
         Vector2 direction = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         direction.Normalize();
 
-        if(running && (direction.x != 0 || direction.y != 0))
+        if(running && currentStamina > 0)
         {
             speed = 6f;
-            Stamina -= RunCost * Time.deltaTime;
-            if(Stamina < 0){Stamina = 0; running = false;}
-            StaminaBar.fillAmount = Stamina / MaxStamina;
-
-            if(rechagre != null) StopCoroutine(rechagre);
-            rechagre = StartCoroutine(RechargeStamina());
+            if((direction.x != 0 || direction.y != 0))
+            {
+                currentStamina -= (runCost * Time.deltaTime);
+                canRechangeStamina = false;
+            }
         }
-        else{speed = 3f;}
+        else
+        {
+           speed = 3f;
+           if(canRechangeStamina)
+           {
+               currentStamina += runCost * Time.deltaTime;
+           }
+           else if(!canRechangeStamina)
+           {
+               StartCoroutine(RechargeStamina());
+           }
+        }
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         //else if(Gun.transform.rotation.z < 90){
         //    Gun.transform.localScale = new Vector3(1, 1, 1);
         //}
+
+        currentHealth = Mathf.Clamp(currentHealth, -1, maxHealth);
+        currentStamina = Mathf.Clamp(currentStamina, -1, maxStamina);
 
         if(Input.GetMouseButtonDown(0))
         {
@@ -91,21 +108,27 @@ public class PlayerController : MonoBehaviour
     }
     private IEnumerator RechargeStamina()
     {
-        yield return new WaitForSeconds(2f);
-
-        while(Stamina < MaxStamina)
-        {
-            Stamina += ChrageRate / 10f;
-            if(Stamina > MaxStamina) Stamina = MaxStamina;
-            StaminaBar.fillAmount = Stamina / MaxStamina;
-            yield return new WaitForSeconds(.1f);
-        }
+            yield return new WaitForSeconds(2f);
+            canRechangeStamina = true;
+            //while(currentStamina < maxStamina)
+            //{
+               //yield return new WaitForSeconds(.1f);
+               //currentStamina += (runCost * Time.deltaTime);
+            //}
     }
 
     void TakeDamage(int damage)
     {
         currentHealth -= damage;
+    }
 
-        healthBar.SetHealth(currentHealth);
+    public Vector2 GetHealth()
+    {
+        return new Vector2(currentHealth, maxHealth);
+    }
+
+    public Vector2 GetStamina()
+    {
+        return new Vector2(currentStamina, maxStamina);
     }
 }

@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+public class StaminaBar : MonoBehaviour
 {
     public Slider slider;
     public PlayerController playercontroller;
 
     void Update()
     {
-        var HealthStats = playercontroller.GetHealth();
-        slider.value = HealthStats.x;
-        slider.maxValue = HealthStats.y;
+        var StaminaStats = playercontroller.GetStamina();
+        slider.value = StaminaStats.x;
+        slider.maxValue = StaminaStats.y;
     }
-    
 }
