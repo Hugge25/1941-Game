@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
     Vector2 movement;
     private bool running = false;
     private int maxStamina = 100;
-    private float runCost = 10;
     private float currentStamina;
     public Camera cam;
     Vector2 mousePos;
@@ -69,18 +68,15 @@ public class PlayerController : MonoBehaviour
             speed = 6f;
             if((direction.x != 0 || direction.y != 0))
             {
-                currentStamina -= (runCost * Time.deltaTime);
+                currentStamina -= (Time.deltaTime);
                 canRechangeStamina = false;
             }
         }
         else
         {
            speed = 3f;
-           if(canRechangeStamina)
-           {
-               currentStamina += runCost * Time.deltaTime;
-           }
-           else if(!canRechangeStamina)
+        
+           if(!canRechangeStamina)
            {
                StartCoroutine(RechargeStamina());
            }
@@ -113,11 +109,11 @@ public class PlayerController : MonoBehaviour
             //while(currentStamina < maxStamina)
             //{
                //yield return new WaitForSeconds(.1f);
-               //currentStamina += (runCost * Time.deltaTime);
+               //currentStamina += (Time.deltaTime);
             //}
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
     }
@@ -125,6 +121,18 @@ public class PlayerController : MonoBehaviour
     public Vector2 GetHealth()
     {
         return new Vector2(currentHealth, maxHealth);
+    }
+
+    void StaminaDrain(int cost)
+    {
+        currentStamina -= cost;
+
+        
+    }
+
+    void StaminaRecharge(int charge)
+    {
+
     }
 
     public Vector2 GetStamina()

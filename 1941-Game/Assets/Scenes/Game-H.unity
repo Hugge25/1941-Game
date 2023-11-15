@@ -581,9 +581,9 @@ HingeJoint2D:
   m_BreakForce: Infinity
   m_BreakTorque: Infinity
   m_BreakAction: 3
-  m_AutoConfigureConnectedAnchor: 0
-  m_Anchor: {x: 0.0053539425, y: -0.07340944}
-  m_ConnectedAnchor: {x: 0, y: 0}
+  m_AutoConfigureConnectedAnchor: 1
+  m_Anchor: {x: 0, y: 0}
+  m_ConnectedAnchor: {x: 0.0063763675, y: -0.03393144}
   m_UseMotor: 0
   m_Motor:
     m_MotorSpeed: 0
@@ -600,6 +600,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1720643577005331242, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1669629671}
+    - target: {fileID: 5304546207773373256, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304546207773373256, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6725502257714856447, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
       propertyPath: m_Name
       value: Enemy (2)
@@ -644,6 +656,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8297282940658185220, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: playercontroller
+      value: 
+      objectReference: {fileID: 1669629671}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1161,7 +1177,7 @@ Transform:
   m_GameObject: {fileID: 580935439}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.0055403574, w: 0.9999847}
-  m_LocalPosition: {x: 0.097, y: -0.103, z: 0.0018302341}
+  m_LocalPosition: {x: -0.006, y: 0.034, z: 0.0018302341}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1186,6 +1202,7 @@ MonoBehaviour:
   maxAmmo: 10
   currentAmmo: 0
   reloadTime: 1
+  IsReloading: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1687,9 +1704,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f046360a438009c4197c60a0c465fe2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   rb: {fileID: 368429843}
   rb_g: {fileID: 580935440}
-  StaminaBar: {fileID: 1319733663}
   cam: {fileID: 519420031}
   Gun: {fileID: 580935439}
   weapon: {fileID: 580935443}
@@ -1824,6 +1841,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1720643577005331242, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1669629671}
+    - target: {fileID: 5304546207773373256, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304546207773373256, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6725502257714856447, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -1868,6 +1897,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8297282940658185220, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: playercontroller
+      value: 
+      objectReference: {fileID: 1669629671}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1956,6 +1989,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1720643577005331242, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1669629671}
+    - target: {fileID: 5304546207773373256, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5304546207773373256, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6725502257714856447, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -2000,6 +2045,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8297282940658185220, guid: 93b7d37540ddbc747833e65d1c1b5159, type: 3}
+      propertyPath: playercontroller
+      value: 
+      objectReference: {fileID: 1669629671}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

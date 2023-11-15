@@ -14,4 +14,9 @@ public class StaminaBar : MonoBehaviour
         slider.value = StaminaStats.x;
         slider.maxValue = StaminaStats.y;
     }
+
+    public void SetStamina(int stamina)
+    {
+        slider.value = stamina;
+    }
 }
