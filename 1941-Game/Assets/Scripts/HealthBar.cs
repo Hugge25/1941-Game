@@ -7,12 +7,24 @@ public class HealthBar : MonoBehaviour
 {
     public Slider slider;
     public PlayerController playercontroller;
+    public Enemy enemy;
 
     void Update()
     {
-        var HealthStats = playercontroller.GetHealth();
-        slider.value = HealthStats.x;
-        slider.maxValue = HealthStats.y;
+        if(playercontroller != null)
+        {
+            var HealthStats = playercontroller.GetHealth();
+            slider.value = HealthStats.x;
+            slider.maxValue = HealthStats.y;
+        }
+
+        else if(enemy != null)
+        {
+            var HealthStats = enemy.GetHealth();
+            slider.value = HealthStats.x;
+            slider.maxValue = HealthStats.y;
+        }
+
     }
     
 }

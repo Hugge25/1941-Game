@@ -2,11 +2,12 @@ using System.Collections;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField]private float speed; 
+    private float speed; 
     public Rigidbody2D rb;
     public Rigidbody2D rb_g;
     Vector2 movement;
@@ -19,7 +20,10 @@ public class PlayerController : MonoBehaviour
     public WeaponController weapon;
     //public HealthBar healthBar;
     private int maxHealth = 100;
-    private int currentHealth;
+    private float currentHealth;
+    private float timer;
+    private float nextAction = 0f;
+    private float period = 0.5f;
 
 
     void Start()
@@ -67,14 +71,12 @@ public class PlayerController : MonoBehaviour
             if((direction.x != 0 || direction.y != 0))
             {
                 currentStamina -= 10 * Time.deltaTime;
-
             }
         }
         else
         {
-           speed = 3f;
-        
-           
+            speed = 3f;
+            currentStamina += 5 * Time.deltaTime;
         }
 
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
@@ -91,25 +93,11 @@ public class PlayerController : MonoBehaviour
         }
 
         if(Input.GetKeyDown(KeyCode.Space)){
-            TakeDamage(10);
+            currentHealth -= 10;
         }
         Vector3 newCameraPos = rb.transform.position;
         newCameraPos.z = cam.transform.position.z;
         cam.transform.position = newCameraPos;
-    }
-    private IEnumerator RechargeStamina()
-    {
-            yield return new WaitForSeconds(2f);
-            while(currentStamina < maxStamina)
-            {
-               yield return new WaitForSeconds(.1f);
-               currentStamina += (Time.deltaTime);
-            }
-    }
-
-    public void TakeDamage(int damage)
-    {
-        currentHealth -= damage;
     }
 
     public Vector2 GetHealth()
@@ -117,7 +105,11 @@ public class PlayerController : MonoBehaviour
         return new Vector2(currentHealth, maxHealth);
     }
 
-
+    /// <summary>
+    /// X is current 
+    /// Y is maximum
+    /// </summary>
+    /// <returns></returns>
     public Vector2 GetStamina()
     {
         return new Vector2(currentStamina, maxStamina);
