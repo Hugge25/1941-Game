@@ -12,7 +12,10 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D other) 
     {
+        if(other.transform.GetComponent<Entity>() != null)
+        {
             other.transform.GetComponent<Entity>().TakeDamage(Damage);
+        }
             Destroy(bullet);
     }
 
