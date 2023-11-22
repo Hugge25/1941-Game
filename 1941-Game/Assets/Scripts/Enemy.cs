@@ -27,7 +27,7 @@ public class Enemy : Entity
 
         var DistanceToPlayer = Vector2.Distance(player.position, gameObject.transform.position);
 
-        if(DistanceToPlayer <= 10)
+        if(DistanceToPlayer <= 10 && DistanceToPlayer >= 4)
         {
             //gör attackgrejer här
             if(player.position.y > gameObject.transform.position.y)
