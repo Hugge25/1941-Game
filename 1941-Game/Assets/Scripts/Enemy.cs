@@ -7,8 +7,13 @@ public class Enemy : Entity
     public GameObject enemy;
 
     Transform player;
-
+    private int speed = 2;
     Vector3 position;
+    public Rigidbody2D rb_g;
+    public Rigidbody2D rb;
+    public WeaponController weaponController;
+    public GameObject Gun;
+    Vector2 movement;
 
     void Start()
     {
@@ -16,6 +21,23 @@ public class Enemy : Entity
         player = PlayerManager.instance.player.transform;
         currentHealth = maxHealth;
         position = gameObject.transform.position;
+    }
+
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
+
+        Vector3 lookDir = player.position - transform.position;
+        float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+        rb_g.rotation = angle;
+
+        
+        if(angle < 89 && angle > -89) {
+            Gun.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else{
+            Gun.transform.localScale = new Vector3(1, -1, 1);
+        }
     }
 
     void Update()
@@ -32,25 +54,29 @@ public class Enemy : Entity
             //gör attackgrejer här
             if(player.position.y > gameObject.transform.position.y)
             {
-                position.y += 1 * Time.deltaTime;
+                position.y += speed * Time.deltaTime;
             }
 
             if(player.position.y < gameObject.transform.position.y)
             {
-                position.y -= 1 * Time.deltaTime;
+                position.y -= speed * Time.deltaTime;
             }
 
             if(player.position.x > gameObject.transform.position.x)
             {
-                position.x += 1 * Time.deltaTime;
+                position.x += speed * Time.deltaTime;
             }
 
             if(player.position.x < gameObject.transform.position.x)
             {
-                position.x -= 1 * Time.deltaTime;
+                position.x -= speed * Time.deltaTime;
             }
 
             gameObject.transform.position = position;
+
+            weaponController.Fire();
+
+            
         }
     }
     //private void OnCollisionEnter2D(Collision2D other) 

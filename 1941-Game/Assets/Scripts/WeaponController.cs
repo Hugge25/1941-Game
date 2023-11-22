@@ -13,6 +13,8 @@ public class WeaponController : MonoBehaviour
     public int currentAmmo;
     public float reloadTime = 1f;
     public bool IsReloading;
+    bool Canfire = true;
+    public float fireRate = 1f;
 
     void Start()
     {
@@ -43,8 +45,10 @@ public class WeaponController : MonoBehaviour
     //}
     public void Fire()
     {
-        if(currentAmmo > 0 && !IsReloading)
+        if(currentAmmo > 0 && !IsReloading && Canfire)
         {
+            Canfire = false;
+            StartCoroutine(FireRate());
             currentAmmo--;
 
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
@@ -58,5 +62,10 @@ public class WeaponController : MonoBehaviour
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = maxAmmo;
         IsReloading = false;
+    }
+    IEnumerator FireRate()
+    {
+        yield return new WaitForSeconds(fireRate);
+        Canfire = true;
     }    
 }
