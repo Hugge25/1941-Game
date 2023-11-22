@@ -7,13 +7,14 @@ using UnityEngine.UI;
 
 public class PlayerController : Entity
 {
-    private float speed; 
+    private float speed;
+
+    private float maxStamina = 100;
+    private float currentStamina; 
     public Rigidbody2D rb;
     public Rigidbody2D rb_g;
     Vector2 movement;
     private bool running = false;
-    private int maxStamina = 100;
-    private float currentStamina;
     public Camera cam;
     Vector2 mousePos;
     public GameObject Gun;
@@ -22,6 +23,7 @@ public class PlayerController : Entity
     private float timer;
     private float nextAction = 0f;
     private float period = 0.5f;
+
 
 
     void Start()
@@ -114,4 +116,6 @@ public class PlayerController : Entity
     {
         return new Vector2(currentStamina, maxStamina);
     }
+
+    
 }
