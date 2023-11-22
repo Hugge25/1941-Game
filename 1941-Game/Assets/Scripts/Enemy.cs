@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
     public GameObject enemy;
-    private float currentHealth;
-    private float maxHealth = 100;
 
     Transform player;
 
@@ -14,6 +12,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        maxHealth = 100f;
         player = PlayerManager.instance.player.transform;
         currentHealth = maxHealth;
         position = gameObject.transform.position;
@@ -54,13 +53,13 @@ public class Enemy : MonoBehaviour
             gameObject.transform.position = position;
         }
     }
-    private void OnCollisionEnter2D(Collision2D other) 
-    {
-        if(other.transform.CompareTag("Bullet"))
-        {
-            currentHealth -= 20;
-        }
-    }
+    //private void OnCollisionEnter2D(Collision2D other) 
+    //{
+        //if(other.transform.CompareTag("Bullet"))
+        //{
+            //currentHealth -= 20;
+        //}
+    //}
      public Vector2 GetHealth()
     {
         return new Vector2(currentHealth, maxHealth);

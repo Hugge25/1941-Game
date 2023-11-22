@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : Entity
 {
     private float speed; 
     public Rigidbody2D rb;
@@ -19,8 +19,6 @@ public class PlayerController : MonoBehaviour
     public GameObject Gun;
     public WeaponController weapon;
     //public HealthBar healthBar;
-    private int maxHealth = 100;
-    private float currentHealth;
     private float timer;
     private float nextAction = 0f;
     private float period = 0.5f;
@@ -30,6 +28,8 @@ public class PlayerController : MonoBehaviour
     {
         currentHealth = maxHealth;
         currentStamina = maxStamina;
+        maxHealth = 100;
+        currentHealth = maxHealth;
     }
     
     void FixedUpdate()

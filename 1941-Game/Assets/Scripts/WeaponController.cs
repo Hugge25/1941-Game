@@ -8,6 +8,8 @@ public class WeaponController : MonoBehaviour
     public Transform firePoint;
     public float fireForce = 20f;
     public int maxAmmo = 10;
+
+    public float Damage = 10;
     public int currentAmmo;
     public float reloadTime = 1f;
     public bool IsReloading;
@@ -46,6 +48,7 @@ public class WeaponController : MonoBehaviour
             currentAmmo--;
 
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            bullet.GetComponent<Bullet>().SetDamage(Damage);
             bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.right * fireForce, ForceMode2D.Impulse);
         }
     }

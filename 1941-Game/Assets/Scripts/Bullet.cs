@@ -8,9 +8,17 @@ public class Bullet : MonoBehaviour
     public GameObject bullet;
     private float Timer;
 
+    private float Damage;
+
     private void OnCollisionEnter2D(Collision2D other) 
     {
-        Destroy(bullet);
+            other.transform.GetComponent<Entity>().TakeDamage(Damage);
+            Destroy(bullet);
+    }
+
+    public void SetDamage(float damage)
+    {
+        Damage = damage;
     }
 
     void Update()
