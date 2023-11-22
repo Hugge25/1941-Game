@@ -5,7 +5,6 @@ using UnityEngine;
 public class Enemy : Entity
 {
     public GameObject enemy;
-
     Transform player;
     private int speed = 2;
     Vector3 position;
