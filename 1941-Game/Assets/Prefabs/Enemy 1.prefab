@@ -722,6 +722,7 @@ MonoBehaviour:
   firePoint: {fileID: 3390828180217912341}
   fireForce: 10
   maxAmmo: 10
+  Automatic: 0
   Damage: 10
   currentAmmo: 0
   reloadTime: 1
