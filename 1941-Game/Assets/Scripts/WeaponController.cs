@@ -9,11 +9,12 @@ public class WeaponController : MonoBehaviour
     public float fireForce = 20f;
     public int maxAmmo = 10;
 
+    public bool Automatic;
     public float Damage = 10;
     public int currentAmmo;
     public float reloadTime = 1f;
     public bool IsReloading;
-    bool Canfire = true;
+    protected bool Canfire = true;
     public float fireRate = 1f;
 
     void Start()
@@ -30,12 +31,12 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
-        else if(Input.GetKeyDown(KeyCode.R) && !IsReloading)
-        {
-            StartCoroutine (ReloadGun());
-            IsReloading = true;
-            return;
-        }
+        //else if(Input.GetKeyDown(KeyCode.R) && !IsReloading)
+        //{
+            //StartCoroutine (ReloadGun());
+            //IsReloading = true;
+            //return;
+        //}
     }
 
     //void ReloadGun()
@@ -57,7 +58,7 @@ public class WeaponController : MonoBehaviour
         }
     }
 
-    IEnumerator ReloadGun()
+    protected IEnumerator ReloadGun()
     {
         yield return new WaitForSeconds(reloadTime);
         currentAmmo = maxAmmo;

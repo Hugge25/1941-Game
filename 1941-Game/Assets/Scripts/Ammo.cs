@@ -7,7 +7,14 @@ using TMPro.EditorUtilities;
 public class Ammo : MonoBehaviour
 {
     public TextMeshProUGUI tmp;
-    public WeaponController weaponController;
+
+    public TextMeshProUGUI firemodetext;
+    WeaponController weaponController;
+
+    void Start()
+    {
+        weaponController = GameObject.FindWithTag("Player").GetComponentInChildren<WeaponController_Player>();
+    }
     void Update()
     {
         switch(weaponController.IsReloading)
@@ -20,7 +27,22 @@ public class Ammo : MonoBehaviour
             tmp.text = "Reloading...";
             break;
         }
+
+        switch(weaponController.Automatic)
+        {
+            case true:
+            firemodetext.text = "Firemode: Automatic";
+            break;
+
+            case false:
+            firemodetext.text = "Firemode: Semi-Automatic";
+            break;
+        }
     }
 
+    public void SetWeaponController(WeaponController_Player weaponcontroller)
+    {
+        weaponController = weaponcontroller;
+    }
 
 }

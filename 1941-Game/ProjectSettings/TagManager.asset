@@ -9,6 +9,7 @@ TagManager:
   - Enemy
   - Bullet
   - Wall
+  - UI
   layers:
   - Default
   - TransparentFX

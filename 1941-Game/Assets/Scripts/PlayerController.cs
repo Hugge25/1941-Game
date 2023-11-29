@@ -7,18 +7,23 @@ using UnityEngine.UI;
 
 public class PlayerController : Entity
 {
+
+    public GameObject Kar98k;
+    public GameObject AK47;
     private float speed;
 
     private float maxStamina = 100;
     private float currentStamina; 
     public Rigidbody2D rb;
-    public Rigidbody2D rb_g;
+    Rigidbody2D rb_g;
+
+    public HingeJoint2D gunhinge;
     Vector2 movement;
     private bool running = false;
     public Camera cam;
     Vector2 mousePos;
-    public GameObject Gun;
-    public WeaponController weapon;
+    GameObject Gun;
+    //public WeaponController weapon;
     //public HealthBar healthBar;
     private float timer;
     private float nextAction = 0f;
@@ -43,15 +48,28 @@ public class PlayerController : Entity
         rb_g.rotation = angle;
 
         
-        if(angle < 89 && angle > -89) {
-            Gun.transform.localScale = new Vector3(1, 1, 1);
-        }
-        else{
-            Gun.transform.localScale = new Vector3(1, -1, 1);
-        }
+        //if(angle < 89 && angle > -89) {
+          //  Gun.transform.localScale = new Vector3(1, 1, 1);
+        //}
+        //else{
+         //   Gun.transform.localScale = new Vector3(1, -1, 1);
+       // }
     } 
     void Update() // Update is called once per frame
     {
+
+        if(Input.GetKeyDown(KeyCode.Keypad1))
+        {
+            Kar98k.SetActive(true);
+            AK47.SetActive(false);
+        }
+
+        if(Input.GetKeyDown(KeyCode.Keypad2))
+        {
+            Kar98k.SetActive(false);
+            AK47.SetActive(true);
+        }
+
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
         
@@ -89,10 +107,10 @@ public class PlayerController : Entity
         currentHealth = Mathf.Clamp(currentHealth, -1, maxHealth);
         currentStamina = Mathf.Clamp(currentStamina, -1, maxStamina);
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            weapon.Fire();
-        }
+        //if(Input.GetMouseButtonDown(0))
+        //{
+            //weapon.Fire();
+        //}
 
         if(Input.GetKeyDown(KeyCode.Space)){
             currentHealth -= 10;
@@ -105,6 +123,13 @@ public class PlayerController : Entity
     public Vector2 GetHealth()
     {
         return new Vector2(currentHealth, maxHealth);
+    }
+
+    public void UpdateGunRB(Rigidbody2D gunrigidbody, GameObject gun)
+    {
+        rb_g = gunrigidbody;
+        gunhinge.connectedBody = gunrigidbody;
+        Gun = gun;
     }
 
     /// <summary>
