@@ -14,8 +14,11 @@ public class Enemy : Entity
     public GameObject Gun;
     Vector2 movement;
 
+    PointSystem pointsystem;
+
     void Start()
     {
+        pointsystem = GameObject.FindWithTag("GameManager").GetComponentInChildren<PointSystem>();
         maxHealth = 100f;
         player = PlayerManager.instance.player.transform;
         currentHealth = maxHealth;
@@ -43,6 +46,7 @@ public class Enemy : Entity
     {
         if(currentHealth <= 0)
         {
+            pointsystem.AddPoints(10);
             Destroy(gameObject);
         }
 
