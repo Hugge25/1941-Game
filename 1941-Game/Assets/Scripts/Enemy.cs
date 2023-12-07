@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Enemy : Entity
 {
+    public GameObject gfx;
     public GameObject enemy;
+    NavMeshAgent agent;
     Transform player;
     private int speed = 2;
+    public float DetectionDinstance;
     Vector3 position;
     public Rigidbody2D rb_g;
     public Rigidbody2D rb;
@@ -18,6 +22,7 @@ public class Enemy : Entity
 
     void Start()
     {
+        agent = gameObject.transform.parent.GetComponent<NavMeshAgent>();
         pointsystem = GameObject.FindWithTag("GameManager").GetComponentInChildren<PointSystem>();
         maxHealth = 100f;
         player = PlayerManager.instance.player.transform;
@@ -44,6 +49,7 @@ public class Enemy : Entity
 
     void Update()
     {
+        gfx.transform.rotation = Quaternion.identity;
         if(currentHealth <= 0)
         {
             pointsystem.AddPoints(10);
@@ -52,34 +58,36 @@ public class Enemy : Entity
 
         var DistanceToPlayer = Vector2.Distance(player.position, gameObject.transform.position);
 
-        if(DistanceToPlayer <= 10 && DistanceToPlayer >= 4)
+        if(DistanceToPlayer <= DetectionDinstance)
         {
-            //gör attackgrejer här
-            if(player.position.y > gameObject.transform.position.y)
+            if(DistanceToPlayer > agent.stoppingDistance)
             {
-                position.y += speed * Time.deltaTime;
+                agent.SetDestination(player.position);
             }
+          //  //gör attackgrejer här
+          //  if(player.position.y > gameObject.transform.position.y)
+          //  {
+          //      position.y += speed * Time.deltaTime;
+          //  }
 
-            if(player.position.y < gameObject.transform.position.y)
-            {
-                position.y -= speed * Time.deltaTime;
-            }
+          //  if(player.position.y < gameObject.transform.position.y)
+          //  {
+          //      position.y -= speed * Time.deltaTime;
+          //  }
 
-            if(player.position.x > gameObject.transform.position.x)
-            {
-                position.x += speed * Time.deltaTime;
-            }
+          //  if(player.position.x > gameObject.transform.position.x)
+          //  {
+          //      position.x += speed * Time.deltaTime;
+          //  }
 
-            if(player.position.x < gameObject.transform.position.x)
-            {
-                position.x -= speed * Time.deltaTime;
-            }
+          //  if(player.position.x < gameObject.transform.position.x)
+          //  {
+          //      position.x -= speed * Time.deltaTime;
+          //  }
 
-            gameObject.transform.position = position;
+          //  gameObject.transform.position = position;
 
-            weaponController.Fire();
-
-            
+            weaponController.Fire();       
         }
     }
     //private void OnCollisionEnter2D(Collision2D other) 
