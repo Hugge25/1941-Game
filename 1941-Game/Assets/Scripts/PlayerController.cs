@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Threading;
+using System.Transactions;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerController : Entity
@@ -118,6 +120,10 @@ public class PlayerController : Entity
         Vector3 newCameraPos = rb.transform.position;
         newCameraPos.z = cam.transform.position.z;
         cam.transform.position = newCameraPos;
+
+        if(currentHealth <= 0){
+            SceneManager.LoadScene(5);
+        }
     }
 
     public Vector2 GetHealth()
@@ -142,5 +148,4 @@ public class PlayerController : Entity
         return new Vector2(currentStamina, maxStamina);
     }
 
-    
 }
