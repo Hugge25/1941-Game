@@ -1,11 +1,6 @@
-using System.Collections;
-using System.Threading;
-using System.Transactions;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
+
 
 public class PlayerController : Entity
 {
@@ -60,13 +55,13 @@ public class PlayerController : Entity
     void Update() // Update is called once per frame
     {
 
-        if(Input.GetKeyDown(KeyCode.Keypad1))
+        if(Input.GetKeyDown(KeyCode.Alpha1))
         {
             Kar98k.SetActive(true);
             AK47.SetActive(false);
         }
 
-        if(Input.GetKeyDown(KeyCode.Keypad2))
+        if(Input.GetKeyDown(KeyCode.Alpha2))
         {
             Kar98k.SetActive(false);
             AK47.SetActive(true);

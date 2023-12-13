@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -18,6 +16,8 @@ public class Enemy : Entity
     public Rigidbody2D rb;
     public WeaponController weaponController;
     public GameObject Gun;
+
+    public EnemySpawningSystem enemyspawingsystem;
     Vector2 movement;
 
     PointSystem pointsystem;
@@ -62,6 +62,7 @@ public class Enemy : Entity
         if(currentHealth <= 0)
         {
             pointsystem.AddPoints(10);
+            enemyspawingsystem.RemoveEnemy(gameObject);
             Destroy(gameObject);
         }
 

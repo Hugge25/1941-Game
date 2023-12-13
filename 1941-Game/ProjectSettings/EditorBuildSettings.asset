@@ -9,6 +9,18 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 46f81c189240060479123ea3af7c2d98
   - enabled: 1
-    path: Assets/Scenes/Game.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Game-J.unity
+    guid: 9623116511a741243961a7b004287d25
+  - enabled: 1
+    path: Assets/Scenes/jacke/Level 2.unity
+    guid: c8b000f85a51ef54a80d5db83a2f2f29
+  - enabled: 1
+    path: Assets/Scenes/jacke/Level 3.unity
+    guid: 727b920f4de88034188f22e4fc9aa8b7
+  - enabled: 1
+    path: Assets/Scenes/WinScene.unity
+    guid: e135c6a14471c944ebceb75ac32d4ba2
+  - enabled: 1
+    path: Assets/Scenes/DeathScene.unity
+    guid: f43d5f8dd213a7c4796347bc6395288a
   m_configObjects: {}
