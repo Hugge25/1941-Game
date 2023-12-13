@@ -5,11 +5,13 @@ using UnityEngine.AI;
 
 public class Enemy : Entity
 {
+
+    public bool LegacyAI;
     public GameObject gfx;
     public GameObject enemy;
     NavMeshAgent agent;
     Transform player;
-    private int speed = 2;
+    [SerializeField] private float speed;
     public float DetectionDinstance;
     Vector3 position;
     public Rigidbody2D rb_g;
@@ -22,7 +24,10 @@ public class Enemy : Entity
 
     void Start()
     {
-        agent = gameObject.transform.parent.GetComponent<NavMeshAgent>();
+        if(LegacyAI == false)
+        {
+            agent = gameObject.transform.parent.GetComponent<NavMeshAgent>();
+        }
         pointsystem = GameObject.FindWithTag("GameManager").GetComponentInChildren<PointSystem>();
         maxHealth = 100f;
         player = PlayerManager.instance.player.transform;
@@ -49,7 +54,11 @@ public class Enemy : Entity
 
     void Update()
     {
-        gfx.transform.rotation = Quaternion.identity;
+        if(gfx != null)
+        {
+            gfx.transform.rotation = Quaternion.identity;
+        }
+        
         if(currentHealth <= 0)
         {
             pointsystem.AddPoints(10);
@@ -60,33 +69,39 @@ public class Enemy : Entity
 
         if(DistanceToPlayer <= DetectionDinstance)
         {
-            if(DistanceToPlayer > agent.stoppingDistance)
+            switch(LegacyAI)
             {
-                agent.SetDestination(player.position);
+                case false:
+                    if(DistanceToPlayer > agent.stoppingDistance)
+                   {
+                       agent.SetDestination(player.position);
+                   }
+                break;
+
+                case true:
+                  if(player.position.y > gameObject.transform.position.y)
+                  {
+                    position.y += speed * Time.deltaTime;
+                  }
+
+                  if(player.position.y < gameObject.transform.position.y)
+                  {
+                    position.y -= speed * Time.deltaTime;
+                  }
+
+                   if(player.position.x > gameObject.transform.position.x)
+                  {
+                    position.x += speed * Time.deltaTime;
+                  }
+
+                   if(player.position.x < gameObject.transform.position.x)
+                   {
+                     position.x -= speed * Time.deltaTime;
+                   }
+       
+                   gameObject.transform.position = position;
+                break;
             }
-          //  //gör attackgrejer här
-          //  if(player.position.y > gameObject.transform.position.y)
-          //  {
-          //      position.y += speed * Time.deltaTime;
-          //  }
-
-          //  if(player.position.y < gameObject.transform.position.y)
-          //  {
-          //      position.y -= speed * Time.deltaTime;
-          //  }
-
-          //  if(player.position.x > gameObject.transform.position.x)
-          //  {
-          //      position.x += speed * Time.deltaTime;
-          //  }
-
-          //  if(player.position.x < gameObject.transform.position.x)
-          //  {
-          //      position.x -= speed * Time.deltaTime;
-          //  }
-
-          //  gameObject.transform.position = position;
-
             weaponController.Fire();       
         }
     }
