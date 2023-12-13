@@ -45,12 +45,12 @@ public class PlayerController : Entity
         rb_g.rotation = angle;
 
         
-        //if(angle < 89 && angle > -89) {
-          //  Gun.transform.localScale = new Vector3(1, 1, 1);
-        //}
-        //else{
-         //   Gun.transform.localScale = new Vector3(1, -1, 1);
-       // }
+        if(angle < 89 && angle > -89) {
+            Gun.transform.localScale = new Vector3(1, 1, 1);
+        }
+        else{
+            Gun.transform.localScale = new Vector3(1, -1, 1);
+       }
     } 
     void Update() // Update is called once per frame
     {
@@ -117,7 +117,7 @@ public class PlayerController : Entity
         cam.transform.position = newCameraPos;
 
         if(currentHealth <= 0){
-            SceneManager.LoadScene(5);
+            SceneManager.LoadScene(SceneManager.sceneCountInBuildSettings - 1);
         }
     }
 
